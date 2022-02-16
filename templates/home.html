@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=IBM+Plex+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="/static/css/global.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home-page">
+            <div id = "home-page__button_back-page" class="home-page__button_back-page home-button_back-page">
+                <div class="home-button_back-page__content">
+                    <a class="home-button_back-page__arrow"></a>
+                    <a href="/" class="home-button_back-page__text">Вернуться на основной сайт</a>
+                </div>
+            </div>
+            <div id = "home-page__button_next-page" class="home-page__button_next-page home-button_next-page">
+                <div class="home-button_next-page__content">
+                    <a href="/school_curriculums" class="home-button_next-page__text">Перейти к просмотру</a>
+                </div>
+            </div>
+            <div class="home-page__main-block home-main-block">
+                <div class="home-main-block__image">
+                    <img  src="/static/images/background_home_main.jpg"  alt="cover">
+                </div>
+                <div class="home-main-block__container __container">
+                    <div class="home-main-block__content">
+                        <h1 class="home-main-block__title"> ШКОЛА СФУ</h1>
+                        <p class="home-main-block__text">На данном сайте вы можете ознакомиться с основными направлениями и приоритетами школы сфу.</p>
+                    </div>
+                </div>
+                <div class="home-main-block__footer">
+                    <div class='editorial'>
+                        <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                            <defs>
+                                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                            </defs>
+                            <g class="parallax">
+                                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,194,146,0.3)" />
+                                <use xlink:href="#gentle-wave" x="48" y="4" fill="rgba(255,172,106,0.7)" />
+                                <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(255,145,56,1)" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-page__canvas-block home-canvas-block">
+                <div class="home-canvas-block__container __container">
+                    <canvas id="home-canvas-block__canvas" class="home-canvas-block__canvas"></canvas>
+                </div>
+            </div>
+            <div class="home-page__review-form home-review-form">
+                <div class="review-form__container __container">
+                    <div class="review-form__content">
+                        <div class="review-form__title">
+                            <h3>Отзыв</h3>
+                        </div>
+                        <div class="review-form__description">
+                            <p>Вы можете оставить свои пожелания и замечания по представленной программе</p>
+                        </div>
+                        <form class="review-form__form" action="{% url 'review_add' %}"method="POST">
+                            {% csrf_token %} 
+                            <div class="review-form__item">
+                                <div class="review-form__item-input">
+                                    {{form.name.label_tag}}
+                                    {{form.name}}
+                                </div>
+                                {{form.name.errors}}
+                            </div>
+                            <div class="review-form__item">
+                                <div class="review-form__item-input">
+                                    {{form.phone.label_tag}}
+                                    {{form.phone}}
+                                </div>
+                                {{form.phone.errors }}
+                            </div>
+                            <div class="review-form__item">
+                                <div class="review-form__item-input">
+                                    {{form.city.label_tag}}
+                                    {{form.city}}
+                                </div>
+                            {{form.city.errors }}
+                            </div>
+                            <div class="review-form__item">
+                                <div class="review-form__comment-label">
+                                    {{form.comment.label_tag}}
+                                </div>
+                                <div class="review-form__comment-input">
+                                    {{form.comment}}
+                                </div>
+                                {{form.comment.errors}}
+                            </div>
+                            <button class="review-form__button" type="submit">
+                               Отправить
+                            </button>
+                        </form>
+                    </div>
+                    <div class="review-form__image">
+                        <img  src="/static/images/img_review.jpg"  alt="cover">
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/static/js/lib/three.js"></script>
+    <script src="/static/js/lib/OrbitControls.js"></script>
+    <script src="/static/js/lib/GLTFLoader.js"></script>
+    <script src="/static/js/scripts/init_home_scene.js"></script>
+    <script src="/static/js/scripts/home_next-page_button_appearance.js"></script>
+</body>
+</html>

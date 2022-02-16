@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=IBM+Plex+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="/static/css/global.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <main class="subjects-page">
+            <div id = "school-curriculum-page__button_back-page" class="school-curriculum-page__button_back-page home-button_back-page">
+                <div class="home-button_back-page__content">
+                    <a class="home-button_back-page__arrow"></a>
+                    <a href="/school_curriculums" class="home-button_back-page__text">Вернуться назад</a>
+                </div>
+            </div>
+            <div class="subject__container __container">
+                <div class="subject-container__content">
+                    {% for subject in subject %}
+                    <div class="subject_wrapper__title subject_content__title">
+                        <h3>{{subject.title}}</h3>
+                    </div>
+                    <div class="subject_wrapper__description subject_content__description">
+                        <p>{{subject.description}}</p>
+                    </div>
+                    <div class="subject_wrapper__title subject_content__title">
+                        <h3>Разбираемые темы</h3>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
