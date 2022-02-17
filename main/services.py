@@ -12,3 +12,9 @@ def get_subject_by_id(id):
 
 def get_school_curriculum_by_id(id):
     return School_curriculum.objects.filter(id = id)
+
+def get_first_elements_of_tuples(tuples):
+    first_elements = []
+    for i in tuples:
+        first_elements.append(i[0])
+    return first_elements

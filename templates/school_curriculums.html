@@ -39,15 +39,26 @@
                                 <h2>{{key.title}}</h2>
                             </div>
                         </div>
-                        <div class="school-curriculum-main-block-content__subsection">        
-                            <ul>  
-                                {% for value in all_value %}
-                                    <a href="/subject_{{value.id}}" class="school-curriculum-main-block-content-subsection__title">
-                                        <li>{{value.title}}</li> 
-                                    </a>                                    
-                                {% endfor %}
-                            </ul>   
+                        <div class="school-curriculum-main-block-content__controller-types-school-class" >
+                            {% for type_school_class in types_school_class %}
+                                <a href="" class="school-curriculum-main-block-content-controller-types-school-class__item" data-index={{type_school_class}}> {{type_school_class}} класс </a>
+                            {% endfor %}
                         </div>
+                        {% for type_school_class in types_school_class %}
+                            <div class="school-curriculum-main-block-content__subsection" data-index={{type_school_class}}> 
+                                <div class="school-curriculum-main-block-content-subsection__items" >
+                                    <ul>  
+                                        {% for value in all_value %}
+                                            {% if value.school_class == type_school_class%}
+                                            <a href="/subject_{{value.id}}" class="school-curriculum-main-block-content-subsection-item__title">
+                                                <li>{{value.title}}</li> 
+                                            </a>                
+                                            {% endif %}                    
+                                        {% endfor %}
+                                    </ul>   
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>    
                 {% endfor %}
@@ -62,6 +73,7 @@
     <script src="/static/js/lib/GLTFLoader.js"></script>
     <script src="/static/js/scripts/init_school_curriculum_page.js"></script>
     <script src="/static/js/scripts/school_curriculum_controller.js"></script>
+    <script src="/static/js/scripts/controller_types_school_class.js"></script>
     
 </body>
 </html>

@@ -28,6 +28,7 @@ class ReviewAdmin(admin.ModelAdmin):
         except Exception as e:
             pass
         return response
-     
+
+
 
 admin.site.register(Review, ReviewAdmin)

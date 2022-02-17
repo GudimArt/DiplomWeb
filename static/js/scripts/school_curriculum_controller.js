@@ -8,6 +8,7 @@ function switch_previous_block(current_id_block){
 
 
 function switch_previous_item(controller_next_item, controller_previous_item, current_id_block, content_wrappers) {
+
     for(let i=0; i<content_wrappers.length; i++){
         if (i != current_id_block){
 
@@ -29,7 +30,6 @@ function switch_previous_item(controller_next_item, controller_previous_item, cu
     else{
         controller_previous_item.style.display = "block"
     }
-
 }
 
 function switch_next_item(controller_next_item, controller_previous_item, current_id_block, content_wrappers){

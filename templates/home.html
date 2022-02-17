@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +85,7 @@
                                 {{form.phone.errors }}
                             </div>
                             <div class="review-form__item">
-                                <div class="review-form__item-input">
+                                <div class="review-form__item-input">                             
                                     {{form.city.label_tag}}
                                     {{form.city}}
                                 </div>
@@ -112,7 +113,6 @@
             </div>
         </main>
     </div>
-    <p>fffff</p>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/static/js/lib/three.js"></script>
     <script src="/static/js/lib/OrbitControls.js"></script>

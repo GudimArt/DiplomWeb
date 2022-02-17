@@ -9,6 +9,36 @@ function init_first_block(controller_next_item, controller_previous_item, conten
 		controller_previous_item.style.display = "none"
     }
 }
+function init_controller_types_school_class_items(content_wrappers){
+	for (let content_wrapper of content_wrappers){
+		if( content_wrapper.style.display == "block"){
+			const tabLinks = content_wrapper.querySelectorAll(".school-curriculum-main-block-content-controller-types-school-class__item");
+			const tabPanels = content_wrapper.querySelectorAll(".school-curriculum-main-block-content__subsection");
+
+			tabLinks[0].classList.add('active');
+			tabPanels[0].classList.add('active');
+		}
+		else{
+			const tabLinks = content_wrapper.querySelectorAll(".school-curriculum-main-block-content-controller-types-school-class__item");
+			const tabPanels = content_wrapper.querySelectorAll(".school-curriculum-main-block-content__subsection");
+
+			for (let tabLink of tabLinks){
+				tabLink.classList.remove('active');
+			}
+			for (let tabPanel of tabPanels){
+				tabPanel.classList.remove('active');
+			}
+		}
+	}
+}
+
+function first_init_controller_types_school_class_items(){
+	let tabLinks = document.querySelectorAll(".school-curriculum-main-block-content-controller-types-school-class__item");
+	let tabPanels = document.querySelectorAll(".school-curriculum-main-block-content__subsection");
+
+	tabLinks[0].classList.add('active');
+	tabPanels[0].classList.add('active');
+}
 
 function find_camera_rotantions(camera_positions, width, height){
 	camera_rotantions = []
@@ -46,6 +76,7 @@ window.onload = function(){
 	let controller_next_item = document.getElementById('controller__next-item');
 
 	init_first_block(controller_next_item, controller_previous_item, content_wrappers)
+	first_init_controller_types_school_class_items()
 
 	let canvas = document.getElementById('school-curriculum-main-block__canvas');
 	let width = canvas.clientWidth;
@@ -80,14 +111,16 @@ window.onload = function(){
 	controls.maxPolarAngle = Math.PI/2; 
 
 	let loader = new THREE.GLTFLoader();
-	loader.load( '/static/models/floorv3.gltf', function ( gltf ) {
+	const clock = new THREE.Clock();
 
-		number_obj = gltf.scene.children.length
-		for(let i = 0; i<number_obj; i++){
-			scene.add( gltf.scene.children[0] );
-			
-		}
-		renderer.render( scene, camera );		
+	let mixer;
+
+	loader.load( '/static/models/school_curriculum_scene.gltf', function ( gltf ) {
+
+	    mixer = new THREE.AnimationMixer(gltf.scene);
+		mixer.clipAction(gltf.animations[0]).play();  // <- первая по списку анимация
+		scene.add(gltf.scene);
+		
 	}, undefined, function ( error ) {
 		console.error( error );
 		renderer.render( scene, camera );
@@ -102,15 +135,23 @@ window.onload = function(){
 		current_id_block = switch_previous_block(current_id_block);
 		switch_previous_item(controller_next_item, controller_previous_item, current_id_block, content_wrappers);
 		switch_previous_camera_positions(current_id_block, camera_positions, camera_rotantions, camera);
+		init_controller_types_school_class_items(content_wrappers);
 	})
 	controller_next_item.addEventListener("click", function(){ 
 		current_id_block = switch_next_block(current_id_block);
 		switch_next_item(controller_next_item, controller_previous_item, current_id_block, content_wrappers);
 		switch_next_camera_positions(current_id_block, camera_positions, camera_rotantions, camera);
+		init_controller_types_school_class_items(content_wrappers);
 	})
 	function render() {
 		window.requestAnimationFrame( render );
 		renderer.render( scene, camera );
+
+		var time = clock.getDelta();
+		// Обновление продвижения времени смесителя и обновление анимации 
+		if (mixer) {
+			mixer.update(time);
+		}
 	}
 	render();
 }
