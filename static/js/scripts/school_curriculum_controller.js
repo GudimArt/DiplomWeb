@@ -5,13 +5,9 @@ function switch_next_block(current_id_block){
 function switch_previous_block(current_id_block){
     return current_id_block = current_id_block - 1
 }
-
-
 function switch_previous_item(controller_next_item, controller_previous_item, current_id_block, content_wrappers) {
-
     for(let i=0; i<content_wrappers.length; i++){
         if (i != current_id_block){
-
             content_wrappers[i].style.display = "none"
         }
         else{
@@ -62,7 +58,6 @@ function switch_previous_camera_positions(previous_id_block, camera_positions, c
     new_camera_rotation = find_previous_camera_rotantion(previous_id_block, camera_rotantions)
     gsap.to(camera.position, {x: new_camera_position.x, y: new_camera_position.y, z: new_camera_position.z, duration: 1}) 
     gsap.to(camera.rotation, {x: new_camera_rotation.x, y: new_camera_rotation.y, z:new_camera_rotation.z, duration: 1})
-
 }
 
 function switch_next_camera_positions(next_id_block, camera_positions, camera_rotantions, camera) {
@@ -70,7 +65,6 @@ function switch_next_camera_positions(next_id_block, camera_positions, camera_ro
     new_camera_rotation = find_next_camera_rotantion(next_id_block, camera_rotantions)
     gsap.to(camera.position, {x: new_camera_position.x, y: new_camera_position.y, z: new_camera_position.z, duration: 1}) 
     gsap.to(camera.rotation, {x: new_camera_rotation.x, y: new_camera_rotation.y, z: new_camera_rotation.z,  duration: 1})
-   
 }
     
 function finf_next_camera_position(next_id_block, camera_positions){
@@ -79,7 +73,6 @@ function finf_next_camera_position(next_id_block, camera_positions){
     new_current_camera_position = camera_positions[next_id_block_for_positions]
     return new_current_camera_position
 }
-
 
 function find_previous_camera_position(previous_id_block, camera_positions){
     let new_current_camera_position
