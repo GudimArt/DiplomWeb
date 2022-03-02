@@ -1,4 +1,4 @@
-from main.models import Subject_school_curriculum,  School_curriculum
+from main.models import Subject_school_curriculum,  School_curriculum, Theme_school_subjects
 
 
 def create_dict_school_curriculums_subjects():
@@ -7,11 +7,14 @@ def create_dict_school_curriculums_subjects():
         dict_school_curriculums_subjects[school_curriculum] = Subject_school_curriculum.objects.filter(school_curriculum = school_curriculum)
     return dict_school_curriculums_subjects
 
+def get_school_curriculum_by_id(id):
+    return School_curriculum.objects.filter(id = id)
+
 def get_subject_by_id(id):
     return Subject_school_curriculum.objects.filter(id = id)
 
-def get_school_curriculum_by_id(id):
-    return School_curriculum.objects.filter(id = id)
+def get_themes_by_subject(subject):
+    return Theme_school_subjects.objects.filter(subject_school_curriculum = subject)
 
 def get_first_elements_of_tuples(tuples):
     first_elements = []

@@ -39,26 +39,29 @@
                                 <h2>{{key.title}}</h2>
                             </div>
                         </div>
-                        <div class="school-curriculum-main-block-content__controller-types-school-class" >
+
+                        <div  class="school-curriculum-main-block-content__aggregator" >
+                            <div class="school-curriculum-main-block-content__controller-types-school-class" >
+                                {% for type_school_class in types_school_class %}
+                                    <a href="" class="school-curriculum-main-block-content-controller-types-school-class__item" data-index={{type_school_class}}> {{type_school_class}} класс </a>
+                                {% endfor %}
+                            </div>
                             {% for type_school_class in types_school_class %}
-                                <a href="" class="school-curriculum-main-block-content-controller-types-school-class__item" data-index={{type_school_class}}> {{type_school_class}} класс </a>
+                                <div class="school-curriculum-main-block-content__subsection" data-index={{type_school_class}}> 
+                                    <div class="school-curriculum-main-block-content-subsection__items" >
+                                        <ul>  
+                                            {% for value in all_value %}
+                                                {% if value.school_class == type_school_class%}
+                                                <a href="/subject_{{value.id}}" class="school-curriculum-main-block-content-subsection-item__title">
+                                                    <li>{{value.title}}</li> 
+                                                </a>                
+                                                {% endif %}                    
+                                            {% endfor %}
+                                        </ul>   
+                                    </div>
+                                </div>
                             {% endfor %}
                         </div>
-                        {% for type_school_class in types_school_class %}
-                            <div class="school-curriculum-main-block-content__subsection" data-index={{type_school_class}}> 
-                                <div class="school-curriculum-main-block-content-subsection__items" >
-                                    <ul>  
-                                        {% for value in all_value %}
-                                            {% if value.school_class == type_school_class%}
-                                            <a href="/subject_{{value.id}}" class="school-curriculum-main-block-content-subsection-item__title">
-                                                <li>{{value.title}}</li> 
-                                            </a>                
-                                            {% endif %}                    
-                                        {% endfor %}
-                                    </ul>   
-                                </div>
-                            </div>
-                        {% endfor %}
                     </div>
                 </div>    
                 {% endfor %}

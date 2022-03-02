@@ -9,7 +9,20 @@ function init_first_block(controller_next_item, controller_previous_item, conten
 		controller_previous_item.style.display = "none"
     }
 }
+
 function init_controller_types_school_class_items(content_wrappers){
+
+	for(let content_wrapper of content_wrappers){
+		const tabLinks = content_wrapper.querySelectorAll(".school-curriculum-main-block-content-controller-types-school-class__item");
+		const tabPanels = content_wrapper.querySelectorAll(".school-curriculum-main-block-content__subsection");
+
+		for (let tabLink of tabLinks){
+			tabLink.classList.remove('active');
+		}
+		for (let tabPanel of tabPanels){
+			tabPanel.classList.remove('active');
+		}
+	}
 	for (let content_wrapper of content_wrappers){
 		if( content_wrapper.style.display == "block"){
 			const tabLinks = content_wrapper.querySelectorAll(".school-curriculum-main-block-content-controller-types-school-class__item");
@@ -17,17 +30,6 @@ function init_controller_types_school_class_items(content_wrappers){
 
 			tabLinks[0].classList.add('active');
 			tabPanels[0].classList.add('active');
-		}
-		else{
-			const tabLinks = content_wrapper.querySelectorAll(".school-curriculum-main-block-content-controller-types-school-class__item");
-			const tabPanels = content_wrapper.querySelectorAll(".school-curriculum-main-block-content__subsection");
-
-			for (let tabLink of tabLinks){
-				tabLink.classList.remove('active');
-			}
-			for (let tabPanel of tabPanels){
-				tabPanel.classList.remove('active');
-			}
 		}
 	}
 }
@@ -50,6 +52,7 @@ function find_camera_rotantions(camera_positions, width, height){
 	}
 	return camera_rotantions
 }
+
 function find_camera_positions(content_wrappers){
 	if (content_wrappers.length > 3)
 	{
@@ -65,7 +68,6 @@ function find_camera_positions(content_wrappers){
 		camera_positions = [{x:0, y:10, z:-55}]
 	}
 	return camera_positions
-
 }
 
 

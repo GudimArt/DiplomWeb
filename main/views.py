@@ -14,5 +14,6 @@ def school_curriculums(request):
     return render(request, 'school_curriculums.html', locals())
 
 def subject_school_curriculums(request, id_subject):
-    subject = get_subject_by_id(id_subject)
+    subject = get_subject_by_id(id_subject)[0]
+    themes = get_themes_by_subject(subject)
     return render(request, 'subject_school_curriculum.html', locals())
