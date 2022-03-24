@@ -20,7 +20,7 @@
             <div id = "home-page__button_back-page" class="home-page__button_back-page home-button_back-page">
                 <div class="home-button_back-page__content">
                     <a class="home-button_back-page__arrow"></a>
-                    <a href="/" class="home-button_back-page__text">Вернуться на основной сайт</a>
+                    <a href="/" class="home-button_back-page__text">Вернуться назад</a>
                 </div>
             </div>
             <div id = "home-page__button_next-page" class="home-page__button_next-page home-button_next-page">
@@ -63,10 +63,10 @@
                 <div class="review-form__container __container">
                     <div class="review-form__content">
                         <div class="review-form__title">
-                            <h3>Отзыв</h3>
+                            <h3>Остались вопросы? </h3>
                         </div>
                         <div class="review-form__description">
-                            <p>Вы можете оставить свои пожелания и замечания по представленной программе</p>
+                            <p>Вы можете оставить свои пожелания, замечания и вопросы по представленной программе</p>
                         </div>
                         <form class="review-form__form" action="{% url 'review_add' %}"method="POST">
                             {% csrf_token %} 
