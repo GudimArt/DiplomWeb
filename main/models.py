@@ -3,7 +3,7 @@ from turtle import mode
 from django.db import models
 
 
-class School_curriculum(models.Model):
+class SchoolCurriculum(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name=u"Название", max_length=200)
     description = models.TextField(verbose_name=u"Описание", blank=True)
@@ -16,11 +16,11 @@ class School_curriculum(models.Model):
         verbose_name_plural = "Школьные программы"
 
 
-class Subject_school_curriculum(models.Model):
+class SubjectSchoolCurriculum(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name=u"Название", max_length=200)
     description = models.TextField(verbose_name=u"Описание", blank=True)
-    school_curriculum  = models.ForeignKey(School_curriculum, verbose_name=u"Школьная программа", on_delete=models.CASCADE)
+    school_curriculum  = models.ForeignKey(SchoolCurriculum, verbose_name=u"Школьная программа", on_delete=models.CASCADE)
     types_school_class = (
         ('10', '10 класс'),
         ('11', '11 класс')
@@ -34,11 +34,11 @@ class Subject_school_curriculum(models.Model):
         verbose_name = "Предмет школьной программы"
         verbose_name_plural = "Предметы школьной программы"
 
-class Theme_school_subjects(models.Model):
+class ThemeSchoolSubjects(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name=u"Название", max_length=200)
     description = models.TextField(verbose_name=u"Описание", blank=True)
-    subject_school_curriculum  = models.ForeignKey(Subject_school_curriculum, verbose_name=u"Предмет школьной программы программа", on_delete=models.CASCADE)
+    subject_school_curriculum  = models.ForeignKey(SubjectSchoolCurriculum, verbose_name=u"Предмет школьной программы программа", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title + " " + "-" + " " + str(self.subject_school_curriculum)

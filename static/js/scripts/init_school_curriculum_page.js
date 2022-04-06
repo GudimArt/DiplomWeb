@@ -86,30 +86,19 @@ window.onload = function(){
 
 	let renderer = new THREE.WebGLRenderer({canvas});
   	renderer.setSize(width,height);
-	renderer.setClearColor(0x000000);
-    
+	//physicallyCorrectLights = true
+
 	let scene = new THREE.Scene();
-	scene.background = new THREE.Color(0xDDDDDC);
+	scene.background = new THREE.Color( 0xdddddc );
     
 	let camera_positions = find_camera_positions(content_wrappers)
 	let camera_rotantions = find_camera_rotantions(camera_positions, width, height);
  	let camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
-	
-	const skyColor = 0xB1E1FF;  
-	const groundColor = 0xB97A20;  
-	let hemisphere_light = new THREE.HemisphereLight(skyColor, groundColor, 1);
-	hemisphere_light.position.set(0,15,0)
-	scene.add(hemisphere_light);
-
-	let spot_light = new THREE.SpotLight(0xffa95c,4);
-	spot_light.position.set(-50,50,50);
-	spot_light.castShadow = true;
-	scene.add( spot_light );
 
     scene.add(new THREE.AxesHelper(500));
 
 	let controls = new THREE.OrbitControls( camera, renderer.domElement );
-	controls.enableZoom = false;
+	controls.enableZoom = true;
 	controls.maxPolarAngle = Math.PI/2; 
 
 	let loader = new THREE.GLTFLoader();
