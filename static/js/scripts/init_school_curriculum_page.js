@@ -84,18 +84,44 @@ window.onload = function(){
 	let width = canvas.clientWidth;
 	let height = canvas.clientHeight;
 
-	let renderer = new THREE.WebGLRenderer({canvas});
+	let renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha: true});
   	renderer.setSize(width,height);
-	//physicallyCorrectLights = true
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+	renderer.outputEncoding = THREE.sRGBEncoding;
 
 	let scene = new THREE.Scene();
 	scene.background = new THREE.Color( 0xdddddc );
+
+	var directional_light = new THREE.DirectionalLight( 0xffffff, 0.8 );
+	directional_light.position.set( 0, 10, 0 );
+	directional_light.castShadow = true;
+	directional_light.shadow.mapSize.set( 512, 512 );
+	directional_light.shadow.camera.top = 25;
+	directional_light.shadow.camera.bottom = -25;
+	directional_light.shadow.camera.left = 25;
+	directional_light.shadow.camera.right = -25;
+	directional_light.shadow.camera.far = 50;
+	scene.add( directional_light );
+	//scene.add( new THREE.CameraHelper( directional_light.shadow.camera ) );
+
+	var spot_light_1 = new THREE.SpotLight( 0xffffff, 0.3 );
+	spot_light_1.position.set( -35, 10, 0 );
+	scene.add( spot_light_1 );
+	var spot_light_2 = new THREE.SpotLight( 0xffffff, 0.3 );
+	spot_light_2.position.set( 35, 10, 0 );
+	scene.add( spot_light_2 );
+	var spot_light_3 = new THREE.SpotLight( 0xffffff, 0.3 );
+	spot_light_3.position.set( 0, 10, 35 );
+	scene.add( spot_light_3 );
+	var spot_light_4 = new THREE.SpotLight( 0xffffff, 0.3 );
+	spot_light_4.position.set( 0, 10, -35 );
+	scene.add( spot_light_4 );
+
     
 	let camera_positions = find_camera_positions(content_wrappers)
 	let camera_rotantions = find_camera_rotantions(camera_positions, width, height);
  	let camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
-
-    scene.add(new THREE.AxesHelper(500));
 
 	let controls = new THREE.OrbitControls( camera, renderer.domElement );
 	controls.enableZoom = true;
@@ -107,10 +133,28 @@ window.onload = function(){
 	let mixer;
 
 	loader.load( '/static/models/school_curriculum_scene.gltf', function ( gltf ) {
-
-	    mixer = new THREE.AnimationMixer(gltf.scene);
-		mixer.clipAction(gltf.animations[0]).play();  // <- первая по списку анимация
-		scene.add(gltf.scene);
+		model = gltf.scene;
+		gltf.scene.traverse( function ( node ) {
+			if ( node.isMesh ) {
+				if (node.name == "Plane"  || node.name == "Cylinder")
+					{
+						node.castShadow = false;
+						node.receiveShadow = true;
+					}
+				else 
+				{
+				node.castShadow = true;
+				node.receiveShadow = false;
+				node.material.metalness = 0;
+				} // undo this change if you apply an env map
+			}
+		} );
+		
+		mixer = new THREE.AnimationMixer( gltf.scene );
+		var action = mixer.clipAction( gltf.animations[ 0 ] );
+		action.play();
+		scene.add( model );
+		animate();
 		
 	}, undefined, function ( error ) {
 		console.error( error );
@@ -134,15 +178,17 @@ window.onload = function(){
 		switch_next_camera_positions(current_id_block, camera_positions, camera_rotantions, camera);
 		init_controller_types_school_class_items(content_wrappers);
 	})
-	function render() {
-		window.requestAnimationFrame( render );
-		renderer.render( scene, camera );
 
-		var time = clock.getDelta();
-		// Обновление продвижения времени смесителя и обновление анимации 
-		if (mixer) {
-			mixer.update(time);
-		}
+	function render() {
+		renderer.render(scene, camera);
 	}
-	render();
+
+	function animate() {
+		delta = clock.getDelta();
+		if (mixer) mixer.update(delta);
+		requestAnimationFrame(animate);
+		controls.update();
+		render();
+	}
+	render()
 }
