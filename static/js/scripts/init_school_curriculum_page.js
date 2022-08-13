@@ -103,7 +103,6 @@ window.onload = function(){
 	directional_light.shadow.camera.right = -25;
 	directional_light.shadow.camera.far = 50;
 	scene.add( directional_light );
-	//scene.add( new THREE.CameraHelper( directional_light.shadow.camera ) );
 
 	var spot_light_1 = new THREE.SpotLight( 0xffffff, 0.3 );
 	spot_light_1.position.set( -35, 10, 0 );
